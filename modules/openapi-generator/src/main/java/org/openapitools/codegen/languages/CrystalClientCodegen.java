@@ -16,6 +16,7 @@
 
 package org.openapitools.codegen.languages;
 
+import io.github.pixee.security.BoundedLineReader;
 import io.swagger.v3.oas.models.media.ArraySchema;
 import io.swagger.v3.oas.models.media.Schema;
 import org.apache.commons.io.FilenameUtils;
@@ -945,7 +946,7 @@ public class CrystalClientCodegen extends DefaultCodegen {
                             BufferedReader br = new BufferedReader(inputStreamReader)) {
                         StringBuilder sb = new StringBuilder();
                         String line;
-                        while ((line = br.readLine()) != null) {
+                        while ((line = BoundedLineReader.readLine(br, 5_000_000)) != null) {
                             sb.append(line);
                         }
                         LOGGER.error("Error running the command ({}). Exit value: {}, Error output: {}", command,
